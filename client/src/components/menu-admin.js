@@ -59,7 +59,7 @@ const AppBar = styled(MuiAppBar, {
   );
 
 
-export default function MenuAdmin () {
+export default function MenuAdmin ({title}) {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -92,7 +92,7 @@ export default function MenuAdmin () {
                 noWrap
                 sx={{ flexGrow: 1 }}
                 >
-                Dashboard
+                  {title}
                 </Typography>
 
             </Toolbar>

@@ -17,7 +17,7 @@ function DashboardContent() {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
 
-        <MenuAdmin />
+        <MenuAdmin title={'DASHBOARD'}/>
         
         <Box
           component="main"
