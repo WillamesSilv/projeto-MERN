@@ -36,7 +36,7 @@ function UsuarioCadastrar() {
       password_user:senha
     }
 
-    if(nome != '' && email != '' && tipo != '' && senha != '') {
+    if(nome !== '' && email !== '' && tipo !== '' && senha !== '') {
       const response = await api.post('/api/users', data)
       if(response.status === 200) {
         window.location.href='/admin/usuarios'
@@ -45,9 +45,7 @@ function UsuarioCadastrar() {
       }
     }else {
       alert('Por Favor Preencha os campos')
-    }
-
-    
+    } 
   }
 
   return (

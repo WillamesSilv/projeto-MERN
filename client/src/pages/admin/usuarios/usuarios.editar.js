@@ -54,7 +54,7 @@ function UsuarioCadastrar() {
       _id:idUsuario
     }
 
-    if(nome != '' && email != '' && tipo != '' && senha != '') {
+    if(nome !== '' && email !== '' && tipo !== '' && senha !== '') {
       const response = await api.put('/api/users', data)
       if(response.status === 200) {
         window.location.href='/admin/usuarios'

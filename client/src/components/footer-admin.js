@@ -5,7 +5,7 @@ export default function FooterAdmin(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
-        <Link color="inherit" href="javascript:;">
+        <Link color="inherit" href="#">
           Curso Básico MERN.
         </Link>{' '}
         {new Date().getFullYear()}

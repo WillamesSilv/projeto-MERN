@@ -21,7 +21,6 @@ import UpdateIcon from '@mui/icons-material/Update';
 import FooterAdmin from '../../../components/footer-admin';
 import MenuAdmin from '../../../components/menu-admin';
 import api from '../../../services/api';
-import { createFilterOptions } from '@mui/core';
 
 const mdTheme = createTheme();
 
@@ -80,7 +79,7 @@ function UsuariosListagem() {
                     height: 500,
                   }}
                 >
-                  <h2>Lista de Usuário</h2>
+                  <h2>Lista de Usuários</h2>
                   <Grid container spacing={3}>
                     <Grid item xs={12} sm={12}>
                       <TableContainer component={Paper}>

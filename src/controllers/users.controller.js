@@ -1,4 +1,6 @@
 const Users = require('../models/user.model')
+const jwt = require("jsonwebtoken")
+const secret = "mysecret"
 
 module.exports = {
     async index(req, res) {
@@ -39,5 +41,32 @@ module.exports = {
         const data = {name_user, email_user, type_user, password_user}
         const user = await Users.findOneAndUpdate({_id}, data, {new: true}) // Sem a variavel new, retorna os dados antigos
         res.json(user)
+    },
+    async login(req, res) {
+        const { email, senha } = req.body
+        Users.findOne({ email_user: email, type_user: 1 }, function (err, user) {
+            if(err) {
+                console.log(err)
+                res.status(200).json({erro: "Erro no servidor, por favor tente novamente"})
+            }else if(!user) {
+                res.status(200).json({status: 2, erro: "E-mail inválido! "})
+            }else {
+                user.isCorrectPassword(senha, async function(err, same){
+                    if(err) {
+                        res.status(200).json({erro:"Erro no servidor, tente novamente."})
+                    }else if(!same) {
+                        res.status(200).json({status:2, erro: "Senha inválida!"})
+                    }else {
+                        const payload ={ email }
+                        const token = jwt.sign(payload, secret, {
+                        expiresIn: "24h"
+                        })
+                        res.cookie('token', token, { httpOnly: true })
+                        res.status(200).json({status: 1, auth: true, token: token, id_client: user._id, user_name: user.name_user})
+                    }
+                })
+                
+            }
+        })
     }
 }
