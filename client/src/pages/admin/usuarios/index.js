@@ -21,6 +21,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import FooterAdmin from '../../../components/footer-admin';
 import MenuAdmin from '../../../components/menu-admin';
 import api from '../../../services/api';
+import { createFilterOptions } from '@mui/core';
 
 const mdTheme = createTheme();
 
@@ -36,6 +37,17 @@ function UsuariosListagem() {
     }
     loadUsuarios()
   }, [])
+
+  async function handleDelete(id) {
+    if(window.confirm('Deseja realmente deletar este usuário?')) {
+      var result = await api.delete('/api/users/'+id)
+      if(result.status === 200 ) {
+        window.location.href = '/admin/usuarios'
+      } else {
+        alert('Ocorreu um erro, tente novamente')
+      }
+    } 
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -96,10 +108,21 @@ function UsuariosListagem() {
                                 <TableCell align="left">{new Date(row.createdAt).toLocaleDateString('pt-br')}</TableCell>
                                 <TableCell align="right">
                                 <ButtonGroup size="small" aria-label="small button group">
-                                  <Button variant="outlined" size="small" endIcon={<UpdateIcon />}>
+                                  <Button 
+                                  variant="outlined" 
+                                  size="small" 
+                                  endIcon={<UpdateIcon />}
+                                  href={'/admin/usuarios/editar/'+row._id}
+                                  >
                                     Atualizar
                                   </Button>
-                                  <Button variant="outlined" color="error" size="small" endIcon={<DeleteIcon />}>
+                                  <Button 
+                                  variant="outlined" 
+                                  color="error" 
+                                  size="small" 
+                                  endIcon={<DeleteIcon />}
+                                  onClick={() => handleDelete(row._id)}
+                                  >
                                     Deletar
                                   </Button>
                                 </ButtonGroup>

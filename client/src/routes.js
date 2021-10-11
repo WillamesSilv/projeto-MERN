@@ -28,11 +28,11 @@ export default function Routes() {
 
                 <Route path="/admin/produtos" exact component={Produtos} />
                 <Route path="/admin/produtos/cadastrar" exact component={ProdutoCadastrar} />
-                <Route path="/admin/produtos/editar" exact component={ProdutoEditar} />
+                <Route path="/admin/produtos/editar/:idProduto" exact component={ProdutoEditar} />
 
                 <Route path="/admin/usuarios" exact component={Usuarios} />
                 <Route path="/admin/usuarios/cadastrar" exact component={UsuarioCadastrar} />
-                <Route path="/admin/usuarios/editar" exact component={UsuarioEditar} />
+                <Route path="/admin/usuarios/editar/:idUsuario" exact component={UsuarioEditar} />
             </Switch>
         </BrowserRouter>
     )
