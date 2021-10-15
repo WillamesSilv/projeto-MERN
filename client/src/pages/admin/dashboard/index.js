@@ -8,10 +8,26 @@ import Grid from '@mui/material/Grid';
 
 import FooterAdmin from '../../../components/footer-admin';
 import MenuAdmin from '../../../components/menu-admin';
+import { getTypeUser } from '../../../services/auth';
+import DashAdmin from './admin';
+import DashGerente from './gerente';
+import DashFuncionario from './funcionario';
+
 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+
+  function getDashBoard() {
+    if(getTypeUser() === "1") {
+      return <DashAdmin />
+    }else if(getTypeUser() === "2") {
+      return <DashGerente />
+    }else{
+      return <DashFuncionario />
+    }
+  }
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -34,7 +50,7 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              
+              {getDashBoard()}
             </Grid>
             <FooterAdmin sx={{ pt: 4 }} />
           </Container>

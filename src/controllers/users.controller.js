@@ -44,7 +44,7 @@ module.exports = {
     },
     async login(req, res) {
         const { email, senha } = req.body
-        Users.findOne({ email_user: email, type_user: 1 }, function (err, user) {
+        Users.findOne({ email_user: email}, function (err, user) {
             if(err) {
                 console.log(err)
                 res.status(200).json({erro: "Erro no servidor, por favor tente novamente"})
@@ -62,7 +62,7 @@ module.exports = {
                         expiresIn: "24h"
                         })
                         res.cookie('token', token, { httpOnly: true })
-                        res.status(200).json({status: 1, auth: true, token: token, id_client: user._id, user_name: user.name_user})
+                        res.status(200).json({status: 1, auth: true, token: token, id_client: user._id, user_name: user.name_user, user_type: user.type_user})
                     }
                 })
                 

@@ -16,23 +16,30 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 import UpdateIcon from '@mui/icons-material/Update';
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 import FooterAdmin from '../../../components/footer-admin';
 import MenuAdmin from '../../../components/menu-admin';
 import api from '../../../services/api';
+import { getNameType } from '../../../functions/static.data';
+
 
 const mdTheme = createTheme();
 
 function UsuariosListagem() {
 
   const [usuarios, setUsuarios] = React.useState([]);
+  const [ loading, setLoading ] = React.useState(true)
+
 
   React.useEffect(() => {
     async function loadUsuarios() {
       const response = await api.get('/api/users')
-      console.log(response)
       setUsuarios(response.data)
+      setLoading(false)
     }
     loadUsuarios()
   }, [])
@@ -80,9 +87,21 @@ function UsuariosListagem() {
                   }}
                 >
                   <h2>Lista de Usuários</h2>
+      
                   <Grid container spacing={3}>
                     <Grid item xs={12} sm={12}>
+                      <Button 
+                        style={{marginBottom: 10}}
+                        variant="contained" 
+                        size="small" 
+                        endIcon={<AddIcon />}
+                        href={'/admin/usuarios/cadastrar'}
+                        >
+                          Cadastrar
+                      </Button>
                       <TableContainer component={Paper}>
+                        
+                        {loading?(<LinearProgress style={{margin: "200px auto", width: "70vw"}} />):(
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                           <TableHead>
                             <TableRow>
@@ -103,12 +122,13 @@ function UsuariosListagem() {
                                   {row.name_user}
                                 </TableCell>
                                 <TableCell align="left">{row.email_user}</TableCell>
-                                <TableCell align="left">{row.type_user ===1? "Adminstrador" : "Funcionário"}</TableCell>
+                                <TableCell align="left">{getNameType(row.type_user)}</TableCell>
                                 <TableCell align="left">{new Date(row.createdAt).toLocaleDateString('pt-br')}</TableCell>
                                 <TableCell align="right">
                                 <ButtonGroup size="small" aria-label="small button group">
                                   <Button 
-                                  variant="outlined" 
+                                  style={{marginRight: 5}}
+                                  variant="contained" 
                                   size="small" 
                                   endIcon={<UpdateIcon />}
                                   href={'/admin/usuarios/editar/'+row._id}
@@ -116,7 +136,7 @@ function UsuariosListagem() {
                                     Atualizar
                                   </Button>
                                   <Button 
-                                  variant="outlined" 
+                                  variant="contained" 
                                   color="error" 
                                   size="small" 
                                   endIcon={<DeleteIcon />}
@@ -129,7 +149,7 @@ function UsuariosListagem() {
                               </TableRow>
                             ))}
                           </TableBody>
-                        </Table>
+                        </Table>)}
                       </TableContainer>
                     </Grid>
                   </Grid>

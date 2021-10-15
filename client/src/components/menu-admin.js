@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { styled } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import List from '@mui/material/List';
@@ -11,6 +12,7 @@ import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 
 import { mainListItems, secondaryListItems } from './list-menu-admin';
+import { getNameUser } from '../services/auth';
 
 const drawerWidth = 240;
 
@@ -94,7 +96,7 @@ export default function MenuAdmin ({title}) {
                 >
                   {title}
                 </Typography>
-
+                {getNameUser()}
             </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -106,6 +108,7 @@ export default function MenuAdmin ({title}) {
                 px: [1],
                 }}
             >
+              <h3>LOGO</h3>
                 <IconButton onClick={toggleDrawer}>
                 <ChevronLeftIcon />
                 </IconButton>

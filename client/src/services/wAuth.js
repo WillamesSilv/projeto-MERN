@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Route, Redirect } from 'react-router-dom';
 
+import LinearProgress from '@mui/material/LinearProgress';
+
+
 import api from './api';
 import { login, logout, getToken } from './auth';
 
@@ -25,7 +28,7 @@ export default function WAuth({component: Component, ...rest}) {
      }, [])
 
      return(
-         loading?`Carregando ...`:<Route { ...rest }
+         loading?<LinearProgress style={{margin: "200px auto", width: "70vw"}} />:<Route { ...rest }
          render={props => !redirect?(
              <Component {...props} />
          ):<Redirect to={{pathname: "/admin/login", state: {from:props.location}}}/> }

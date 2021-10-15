@@ -119,7 +119,8 @@ function UsuarioCadastrar() {
                           label="Tipo"
                         >
                           <MenuItem value={1}>Adminstrador</MenuItem>
-                          <MenuItem value={2}>Funcionário</MenuItem>
+                          <MenuItem value={2}>Gerente</MenuItem>
+                          <MenuItem value={3}>Funcionário</MenuItem>
                         </Select>
                       </FormControl>
                     </Grid>
